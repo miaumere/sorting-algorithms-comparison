@@ -8,6 +8,7 @@ void insertionSort(int[], int);
 void quickSort(int[], int, int);
 
 void printArray(int[], int);
+void swapArrayFields(int*, int*);
 
 int _bubbleSortStep = 0;
 int _insertionSortStep = 0;
@@ -42,7 +43,7 @@ int main()
 
 
         std::cout << "sorted array: \n";
-        printArray(arr, arrLength);
+        printArray(arrayForBubbleSort, arrLength);
 
     #pragma endregion
 
@@ -51,7 +52,7 @@ int main()
         std::copy(arr, arr + bufferSize, arrayForInsertionSort);
 
         auto insertionSortTimerStart = std::chrono::steady_clock::now();
-        insertionSort(arr, arrLength);
+        insertionSort(arrayForInsertionSort, arrLength);
         auto insertionSortTimerEnd = std::chrono::steady_clock::now();
         std::cout << "insertionSort elapsed time in nanoseconds: "
             << std::chrono::duration_cast<std::chrono::nanoseconds>(insertionSortTimerEnd - insertionSortTimerStart).count()
@@ -61,7 +62,7 @@ int main()
 
 
         std::cout << "sorted array: \n";
-        printArray(arr, arrLength);
+        printArray(arrayForInsertionSort, arrLength);
 
     #pragma endregion
 
@@ -70,7 +71,7 @@ int main()
         std::copy(arr, arr + bufferSize, arrayForQuickSort);
 
         auto quickSortTimerStart = std::chrono::steady_clock::now();
-        quickSort(arr, 0, arrLength - 1);
+        quickSort(arrayForQuickSort, 0, arrLength - 1);
         auto quickSortTimerEnd = std::chrono::steady_clock::now();
 
         std::cout << "quickSort elapsed time in nanoseconds: "
@@ -81,7 +82,7 @@ int main()
 
 
         std::cout << "sorted array: \n";
-        printArray(arr, arrLength);
+        printArray(arrayForQuickSort, arrLength);
 
     #pragma endregion
 
@@ -91,20 +92,26 @@ int main()
 
 #pragma region bubbleSort functions
     void bubbleSort(int arr[], int lengthOfArray)
-    {   
+    {      
         int i, j;
+        bool swapped;
         for (i = 0; i < lengthOfArray - 1; i++) {
+            swapped = false;
+
             for (j = 0; j < lengthOfArray - i - 1; j++) {
 
                 if (arr[j] > arr[j + 1]) {
 
-                    std::swap(arr[i], arr[j + 1]);
-
+                    std::swap(arr[j], arr[j + 1]);
                     _bubbleSortStep++;
+                    swapped = true;
 
               }
-            }      
+            }     
+            if (swapped == false)
+                break;
         }
+
     }
 #pragma endregion 
 
@@ -169,3 +176,10 @@ int main()
         std::cout << std::endl;
     }
 
+// A utility function to swap two elements
+    void swapArrayFields(int* xp, int* yp)
+    {
+        int temp = *xp;
+        *xp = *yp;
+        *yp = temp;
+    }
