@@ -5,10 +5,14 @@
 
 void bubbleSort(int[], int);
 void insertionSort(int[], int);
-void quickSort(int[], int, int, int);
+void quickSort(int[], int, int);
 
 void printArray(int[], int);
-void swapArrayFields(int*, int*);
+
+int _bubbleSortStep = 0;
+int _insertionSortStep = 0;
+int _quickSortStep = 0;
+
 
 
 int main()
@@ -33,6 +37,13 @@ int main()
         std::cout << "bubbleSort elapsed time in nanoseconds: "
             << std::chrono::duration_cast<std::chrono::nanoseconds>(bubbleSortTimerEnd - bubbleSortTimerStart).count()
             << " ns" << std::endl;
+
+        std::cout << "bubbleSort actions count: " << _bubbleSortStep << std::endl;
+
+
+        std::cout << "sorted array: \n";
+        printArray(arr, arrLength);
+
     #pragma endregion
 
     #pragma region insertionSort
@@ -45,6 +56,13 @@ int main()
         std::cout << "insertionSort elapsed time in nanoseconds: "
             << std::chrono::duration_cast<std::chrono::nanoseconds>(insertionSortTimerEnd - insertionSortTimerStart).count()
             << " ns" << std::endl;
+
+        std::cout << "insertionSort actions count: " << _insertionSortStep << std::endl;
+
+
+        std::cout << "sorted array: \n";
+        printArray(arr, arrLength);
+
     #pragma endregion
 
     #pragma region quickSort
@@ -52,18 +70,21 @@ int main()
         std::copy(arr, arr + bufferSize, arrayForQuickSort);
 
         auto quickSortTimerStart = std::chrono::steady_clock::now();
-        int actionCount = 0;
-        quickSort(arr, 0, arrLength - 1, actionCount);
+        quickSort(arr, 0, arrLength - 1);
         auto quickSortTimerEnd = std::chrono::steady_clock::now();
 
         std::cout << "quickSort elapsed time in nanoseconds: "
             << std::chrono::duration_cast<std::chrono::nanoseconds>(quickSortTimerEnd - quickSortTimerStart).count()
             << " ns" << std::endl;
 
+        std::cout << "quickSort actions count: " << _quickSortStep << std::endl;
+
+
+        std::cout << "sorted array: \n";
+        printArray(arr, arrLength);
+
     #pragma endregion
 
-    std::cout << "sorted array: \n";
-    printArray(arr, arrLength);
 
     return 0;
 }
@@ -71,88 +92,71 @@ int main()
 #pragma region bubbleSort functions
     void bubbleSort(int arr[], int lengthOfArray)
     {   
-        int actionsCount = 0;
         int i, j;
         for (i = 0; i < lengthOfArray - 1; i++) {
-            actionsCount += 1;
             for (j = 0; j < lengthOfArray - i - 1; j++) {
-                actionsCount += 1;
 
                 if (arr[j] > arr[j + 1]) {
-                    actionsCount += 1;
 
-                    swapArrayFields(&arr[j], &arr[j + 1]);
+                    std::swap(arr[i], arr[j + 1]);
+
+                    _bubbleSortStep++;
+
               }
             }      
         }
-        std::cout << "bubbleSort actionsCount: " << actionsCount << std::endl;
     }
 #pragma endregion 
 
 #pragma region insertionSort functions
     void insertionSort(int arr[], int n)
     {
-        int actionsCount = 0;
         int i, key, j;
         for (i = 1; i < n; i++)
         {
             key = arr[i];
             j = i - 1;
-            actionsCount += 1;
             while (j >= 0 && arr[j] > key)
             {
                 arr[j + 1] = arr[j];
+                _insertionSortStep++;
+
                 j = j - 1;
-                actionsCount += 1;
 
             }
             arr[j + 1] = key;           
-            actionsCount += 1;
 
         }
-        std::cout << "insertionSort actionsCount: " << actionsCount << std::endl;
-
     }
 #pragma endregion
 
 #pragma region quickSort functions
-    int partition(int arr[], int low, int high, int actionsCount)
+    void quickSort(int arr[], int left, int right)
     {
-        int pivot = arr[high]; 
-        int i = (low - 1);
+        if (right <= left) return;
 
+        int i, j;
+        int pivot;
+        i = left;
+        j = right;
 
-        for (int j = low; j <= high - 1; j++)
+        pivot = arr[(left + right) / 2];
+        do
         {
-            actionsCount += 1;
-            if (arr[j] < pivot)
-            {
+            while ((arr[i] < pivot) && (i < right)) i++;
+            while ((pivot < arr[j]) && (j > left)) j--;
+            if (i <= j)
+            {          
+                std::swap(arr[i], arr[j]);
                 i++;
-                actionsCount += 1;
+                j--;
+                _quickSortStep++;
 
-                swapArrayFields(&arr[i], &arr[j]);
             }
-        }
-        swapArrayFields(&arr[i + 1], &arr[high]);
-        return (i + 1);
+        } while (i <= j);
+        if (left < j)  quickSort(arr, left, j);
+        if (i < right)  quickSort(arr, i, right);
     }
-
-    void quickSort(int arr[], int low, int high, int actionsCount)
-    {
-        actionsCount += 1;
-
-        if (low < high)
-        {
-            int pi = partition(arr, low, high, actionsCount);
-            actionsCount += 1;
-
-            quickSort(arr, low, pi - 1, actionsCount);
-            quickSort(arr, pi + 1, high, actionsCount);
-        }
-        std::cout << "quickSort actionsCount: " << actionsCount << std::endl;
-
-    }
-
 #pragma endregion
 
 
@@ -165,10 +169,3 @@ int main()
         std::cout << std::endl;
     }
 
-// A utility function to swap two elements
-    void swapArrayFields(int* xp, int* yp)
-    {
-        int temp = *xp;
-        *xp = *yp;
-        *yp = temp;
-    }
