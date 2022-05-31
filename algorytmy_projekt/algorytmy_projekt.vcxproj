@@ -140,10 +140,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="algorytmy_projekt.cpp" />
+    <ClCompile Include="bubble_sort_method.cpp" />
+    <ClCompile Include="insert_sort_method.cpp" />
+    <ClCompile Include="quick_sort_method.cpp" />
     <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="bubble_sorting.h" />
+    <ClInclude Include="sort_algorithms.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>
