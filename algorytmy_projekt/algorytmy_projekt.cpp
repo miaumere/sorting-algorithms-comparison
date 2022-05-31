@@ -10,8 +10,6 @@ void bubbleSort(int[], int);
 void insertionSort(int[], int);
 void quickSort(int[], int, int);
 
-void printArray(int[], int);
-
 
 int _bubbleSortStep = 0;
 int _insertionSortStep = 0;
