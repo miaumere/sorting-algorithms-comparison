@@ -299,5 +299,4 @@ int main()
             for (i = 0; i < size; i++)
                 std::cout << arr[i] << " ";
             std::cout << std::endl;
-       
     }
