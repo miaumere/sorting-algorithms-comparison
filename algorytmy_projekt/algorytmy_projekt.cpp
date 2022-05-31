@@ -9,6 +9,9 @@ void quickSort(int[], int, int);
 
 void printArray(int[], int);
 
+void swap(int*, int*);
+
+
 int _bubbleSortStep = 0;
 int _insertionSortStep = 0;
 int _quickSortStep = 0;
@@ -218,22 +221,16 @@ int main()
     {      
         int i, j;
         bool swapped;
-        for (i = 0; i < lengthOfArray - 1; i++) {
-            swapped = false;
 
-            for (j = 0; j < lengthOfArray - i - 1; j++) {
+        for (i = 0; i < lengthOfArray - 1; i++)
 
+            // Last i elements are already in place
+            for (j = 0; j < lengthOfArray - i - 1; j++)
                 if (arr[j] > arr[j + 1]) {
-
-                    std::swap(arr[j], arr[j + 1]);
+                    swap(&arr[j], &arr[j + 1]);
                     _bubbleSortStep++;
-                    swapped = true;
 
-              }
-            }     
-            if (swapped == false)
-                break;
-        }
+                }
 
     }
 #pragma endregion 
@@ -257,6 +254,7 @@ int main()
             arr[j + 1] = key;           
 
         }
+
     }
 #pragma endregion
 
@@ -299,4 +297,12 @@ int main()
             for (i = 0; i < size; i++)
                 std::cout << arr[i] << " ";
             std::cout << std::endl;
+    }
+
+// utility function to swap items in array
+    void swap(int* xp, int* yp)
+    {
+        int temp = *xp;
+        *xp = *yp;
+        *yp = temp;
     }
