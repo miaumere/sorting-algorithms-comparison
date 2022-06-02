@@ -2,14 +2,39 @@
 #include <algorithm>
 #include <chrono>
 #include <stdlib.h>
+#include <ios>
+#include <fstream>
 
 #include "sort_algorithms.h"
+#include <stdio.h>
+#include <wchar.h>
+#include <windows.h>
 
 bool _generateRandomNumbers;
 
+
 int main()
 {
+    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    if (hOut == INVALID_HANDLE_VALUE)
+    {
+        return GetLastError();
+    }
+
+    DWORD dwMode = 0;
+    if (!GetConsoleMode(hOut, &dwMode))
+    {
+        return GetLastError();
+    }
+
+    dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+    if (!SetConsoleMode(hOut, dwMode))
+    {
+        return GetLastError();
+    }
+
     int arrLength;
+
     std::cout << "Enter desired size of the array: ";
     std::cin >> arrLength;
 
@@ -50,9 +75,26 @@ int main()
         }
     }
 
-    doBubbleSortWithTimers(arr, arrLength, bufferSize);
+    std::ofstream file;
+    file.open("example.csv");
+
+    file << "Nazwa algorytmu;" 
+        << "Czas dla tablicy posortowanej rosnaco; Czas dla tablicy posortowanej malejaco; Czas dla tablicy nieposortowanej; "
+        << "Ilosc akcji dla tablicy posortowanej rosnaco; Ilosc akcji dla tablicy posortowanej malejaco; Ilosc akcji dla tablicy posortowanej nieposortowanej; \n";
+
+
+    file << doBubbleSortWithTimers(arr, arrLength, bufferSize);
+
     doInsertionSortWithTimers(arr, arrLength, bufferSize);
+
     doQuickSortWithTimers(arr, arrLength, bufferSize);
+
+
+    file.close();
+
+
+    std::cin.ignore();
+    std::cin.ignore();
 
     return 0;
 }
