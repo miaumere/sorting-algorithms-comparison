@@ -1,0 +1,4 @@
+Nazwa algorytmu;Czas dla tablicy posortowanej rosnaco (w ns); Czas dla tablicy posortowanej malejaco (w ns); Czas dla tablicy nieposortowanej (w ns); Ilosc akcji dla tablicy posortowanej rosnaco; Ilosc akcji dla tablicy posortowanej malejaco; Ilosc akcji dla tablicy posortowanej nieposortowanej; 
+Bubble sort;87703300;289078500;331543200;0;49993478;25434918
+Insert sort;27700;120869900;63043000;0;49993478;25121920
+Quick sort;363400;585300;1600400;6681;11686;34105

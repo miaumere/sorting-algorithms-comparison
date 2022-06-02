@@ -63,7 +63,7 @@ std::string doBubbleSortWithTimers(int arr[], int arrLength, int bufferSize) {
     int action3 = _bubbleSortStep;
 
 
-    return generateCsvLine("Bubble sort", timeOutput1, action1, timeOutput2, action2, timeOutput3, action3);
+    return generateCsvLine("Bubble sort", timeOutput1, timeOutput2, timeOutput3, action1, action2, action3);
 }
 
 void bubbleSort(int arr[], int lengthOfArray)

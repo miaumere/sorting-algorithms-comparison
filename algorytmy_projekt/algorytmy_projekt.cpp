@@ -76,18 +76,18 @@ int main()
     }
 
     std::ofstream file;
-    file.open("example.csv");
+    file.open("algorithms_comparison.csv");
 
     file << "Nazwa algorytmu;" 
-        << "Czas dla tablicy posortowanej rosnaco; Czas dla tablicy posortowanej malejaco; Czas dla tablicy nieposortowanej; "
+        << "Czas dla tablicy posortowanej rosnaco (w ns); Czas dla tablicy posortowanej malejaco (w ns); Czas dla tablicy nieposortowanej (w ns); "
         << "Ilosc akcji dla tablicy posortowanej rosnaco; Ilosc akcji dla tablicy posortowanej malejaco; Ilosc akcji dla tablicy posortowanej nieposortowanej; \n";
 
 
     file << doBubbleSortWithTimers(arr, arrLength, bufferSize);
 
-    doInsertionSortWithTimers(arr, arrLength, bufferSize);
+    file << doInsertionSortWithTimers(arr, arrLength, bufferSize);
 
-    doQuickSortWithTimers(arr, arrLength, bufferSize);
+    file << doQuickSortWithTimers(arr, arrLength, bufferSize);
 
 
     file.close();

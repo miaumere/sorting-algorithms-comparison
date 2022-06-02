@@ -1,17 +1,2 @@
-﻿  bubble_sort_method.cpp
-C:\Users\Kinga\Documents\GitHub\sorting-algorithms-comparison\algorytmy_projekt\bubble_sort_method.cpp(30,21): warning C4244: "inicjowanie": konwersja z "_Rep" do "int", możliwa utrata danych
-          with
-          [
-              _Rep=__int64
-          ]
-C:\Users\Kinga\Documents\GitHub\sorting-algorithms-comparison\algorytmy_projekt\bubble_sort_method.cpp(44,21): warning C4244: "inicjowanie": konwersja z "_Rep" do "int", możliwa utrata danych
-          with
-          [
-              _Rep=__int64
-          ]
-C:\Users\Kinga\Documents\GitHub\sorting-algorithms-comparison\algorytmy_projekt\bubble_sort_method.cpp(58,21): warning C4244: "inicjowanie": konwersja z "_Rep" do "int", możliwa utrata danych
-          with
-          [
-              _Rep=__int64
-          ]
+﻿  algorytmy_projekt.cpp
   algorytmy_projekt.vcxproj -> C:\Users\Kinga\Documents\GitHub\sorting-algorithms-comparison\x64\Debug\algorytmy_projekt.exe

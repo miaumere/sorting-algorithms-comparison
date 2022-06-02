@@ -8,7 +8,7 @@ void insertionSort(int[], int);
 
 int _insertionSortStep = 0;
 
-void doInsertionSortWithTimers(int arr[], int arrLength, int bufferSize) {
+std::string  doInsertionSortWithTimers(int arr[], int arrLength, int bufferSize) {
     printf("\033[93;1;4m------------- INSERTION SORT -------------\033[0m\n\n");
 
     int* ascendingSortedArrayForInsertionSort = new int[arrLength];
@@ -26,36 +26,37 @@ void doInsertionSortWithTimers(int arr[], int arrLength, int bufferSize) {
     auto insertionSortTimerStart1 = std::chrono::steady_clock::now();
     insertionSort(ascendingSortedArrayForInsertionSort, arrLength);
     auto insertionSortTimerEnd1 = std::chrono::steady_clock::now();
-    std::cout << "\x1B[33mARR SORTED ASC - elapsed time in nanoseconds: \033[0m"
-        << std::chrono::duration_cast<std::chrono::nanoseconds>(insertionSortTimerEnd1 - insertionSortTimerStart1).count() << " ns" << std::endl;
+    int timeOutput1 = std::chrono::duration_cast<std::chrono::nanoseconds>(insertionSortTimerEnd1 - insertionSortTimerStart1).count();
 
-    std::cout << "\x1B[33mARR SORTED ASC -  actions count: \033[0m"
-        << _insertionSortStep << std::endl;
+
+    std::cout << "\x1B[33mARR SORTED ASC - elapsed time in nanoseconds: \033[0m" << timeOutput1 << std::endl;
+
+    std::cout << "\x1B[33mARR SORTED ASC -  actions count: \033[0m" << _insertionSortStep << std::endl;
+    int action1 = _insertionSortStep;
     _insertionSortStep = 0;
 
     auto insertionSortTimerStart2 = std::chrono::steady_clock::now();
     insertionSort(descendingSortedArrayForInsertionSort, arrLength);
     auto insertionSortTimerEnd2 = std::chrono::steady_clock::now();
+    int timeOutput2 = std::chrono::duration_cast<std::chrono::nanoseconds>(insertionSortTimerEnd2 - insertionSortTimerStart2).count();
 
-    std::cout << "\x1B[93mARR SORTED DESC - elapsed time in nanoseconds: \033[0m"
-        << std::chrono::duration_cast<std::chrono::nanoseconds>(insertionSortTimerEnd2 - insertionSortTimerStart2).count() << " ns" << std::endl;
+    std::cout << "\x1B[93mARR SORTED DESC - elapsed time in nanoseconds: \033[0m" << timeOutput2 << std::endl;
 
-    std::cout << "\x1B[93mARR SORTED DESC -  actions count: \033[0m"
-        << _insertionSortStep << std::endl;
+    std::cout << "\x1B[93mARR SORTED DESC -  actions count: \033[0m" << _insertionSortStep << std::endl;
+    int action2 = _insertionSortStep;
     _insertionSortStep = 0;
 
 
     auto insertionSortTimerStart3 = std::chrono::steady_clock::now();
     insertionSort(shuffledArrayForInsertionSort, arrLength);
     auto insertionSortTimerEnd3 = std::chrono::steady_clock::now();
+    int timeOutput3 = std::chrono::duration_cast<std::chrono::nanoseconds>(insertionSortTimerEnd3 - insertionSortTimerStart3).count();
+    int action3 = _insertionSortStep;
+    std::cout << "\x1B[33mARR SHUFFLED - elapsed time in nanoseconds: \033[0m" << timeOutput3 << std::endl;
 
-    std::cout << "\x1B[33mARR SHUFFLED - elapsed time in nanoseconds: \033[0m"
-        << std::chrono::duration_cast<std::chrono::nanoseconds>(insertionSortTimerEnd3 - insertionSortTimerStart3).count() << " ns" << std::endl;
+    std::cout << "\x1B[33mARR SHUFFLED -  actions count: \033[0m" << _insertionSortStep << std::endl << std::endl;
 
-    std::cout << "\x1B[33mARR SHUFFLED -  actions count: \033[0m"
-        << _insertionSortStep << std::endl << std::endl;
-
-
+    return generateCsvLine("Insert sort", timeOutput1, timeOutput2, timeOutput3, action1, action2, action3);
 }
 
 void insertionSort(int arr[], int n)
